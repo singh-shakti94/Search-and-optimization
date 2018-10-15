@@ -1,0 +1,21 @@
+function [x fval history] = new_fminsearch(x0, optimFunc, optNew)
+    history = [];
+    A = [];
+    b = [];
+    Aeq = [];
+    beq = [];
+    lb = [];
+    ub = [];
+    nonlcon = [];
+    options = optimoptions( optNew, 'OutputFcn', @myoutput);
+%     options = optimoptions(optOld, optNew)
+    [x, fval] = patternsearch(optimFunc, x0, A, b, Aeq, beq, ...
+                                lb, ub, nonlcon, options);
+        
+    function stop = myoutput(~, optimvalues, state)
+        stop = false;
+        if isequal(state,'iter')
+          history = [history; [optimvalues.funccount, optimvalues.fval]];
+        end
+    end
+end

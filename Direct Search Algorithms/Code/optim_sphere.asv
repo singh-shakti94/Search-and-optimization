@@ -1,0 +1,16 @@
+%% Default parameters
+x0 = rand(15 ,1)
+options = optimset()
+[x, fval, history1] = new_fminsearch(x0, @sphere, options);
+plot(history1(:,1), log(history1(:,2)), "Linewidth", 2)
+title('fminsearch on Sphere function')
+xlabel('Iterations')
+ylabel('log(fval)')
+
+%% Tweaking parameters
+options = optimset("MaxIter", 5000, "MaxFunEvals", 5000, 'TolFun',1e-7,'TolX',1e-7)
+[x, fval, history2] = new_fminsearch(x0, @sphere, options);
+plot(history2(:,1), log(history2(:,2)), "Linewidth", 2)
+title('fminsearch on Sphere function ()')
+xlabel('Iterations')
+ylabel('log(fval)')
